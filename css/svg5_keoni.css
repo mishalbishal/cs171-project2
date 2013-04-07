@@ -1,0 +1,31 @@
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.dot {
+	fill: #a0bb28;
+  stroke: #444444;
+}
+
+#infobox
+{
+font-size: 12px;
+text-align: center;
+line-height: 19px;
+position:fixed;
+top:370px;
+left:500px;
+height: 55px;
+width: 200px;
+border-style:solid;
+border-color:#aaaaaa;
+border-width:2px;
+z-index:2;
+}
