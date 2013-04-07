@@ -1,0 +1,55 @@
+h1, p {
+	margin: 0;
+}
+
+#info {
+	right: 100px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	height: 100px;
+	width: 500px;
+}
+
+#info p {
+	margin-top: 0;
+}
+
+svg {
+	border-style: solid;
+	border-width: 1px;
+	left: 0;
+	right: 0;
+}
+
+.green {
+	fill: #7FC97F;
+}
+
+.blue {
+	fill: #BEAED4;
+}
+
+.orange {
+	fill: #FDC086;
+}
+
+
+.axis line {
+	margin-left: 20px;
+}
+
+.axis text {
+	font-size: 0.6em;
+}
+
+.axis text.title {
+	font-size: 0.8em;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
