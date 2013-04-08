@@ -2,6 +2,10 @@ h1, p {
 	margin: 0;
 }
 
+.invis {
+	display: none;
+}
+
 #info {
 	right: 100px;
 	border-style: solid;
