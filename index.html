@@ -11,6 +11,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/svg5_keoni.css" />
     <link rel="stylesheet" type="text/css" href="css/svg5.css" />
+
     <style>
       #vis1, #vis2, #about {
         padding-top: 40px;
@@ -25,7 +26,8 @@
                 margin-left: 620px;
                 position: absolute;
             }
-        </style> <script type="text/javascript" src="js/d3.v3.min.js"></script>
+        </style>
+        <script src="js/d3.v3.min.js"></script>
   </head>
 
   <body>
@@ -59,7 +61,8 @@
       <div id="vis1">
         <div class="description">
           <h2>Bar Graph</h2>
-          <p>This visualization displays the popularity of chess openings. Since chess is a very old game, each of these openings have over time developed variants. As there may be hundreds of variants for a particular opening; we have removed the clutter and grouped each of the variants within their particular category. Clicking on a overall opening group allows you to bring up the bar graph representing the specific variants for that opening.</p>
+          <p>This visualization displays the popularity of chess openings. Since chess is a very old game, each of these openings have over time developed variants. As there may be hundreds of variants for a particular opening; we have removed the clutter and grouped each of the variants within their particular overall opening category.</p>
+          <p>Clicking on a overall opening group allows you to bring up the bar graph representing the specific variants for that opening.</p>
         </div>
 
         <div id="info">
@@ -67,6 +70,7 @@
             <div id="message">
                 <p id="name">Name: <span class="stuff"></span></p>
                 <p id="numgames">Total Games: <span class="stuff"></span>
+                <p id="wikilink">Learn more: <span class="stuff"></span></p>
             </div>
             <button id="back">Click here to see overall openings</button>
         </div>

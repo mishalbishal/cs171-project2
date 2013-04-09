@@ -2,7 +2,7 @@ window.onload = function() {
     chart = d3.select('#chart');
 
     var height = 500,
-        width = 1200;
+        width = 900;
 
     chart.attr("width", width)
          .attr("height", height);
@@ -21,7 +21,7 @@ window.onload = function() {
 
     var x = d3.scale.linear()
             .domain([0, chartData.length])
-            .range([0, width - margin.left]);
+            .range([0, width - margin.left - margin.right]);
 
     var y = d3.scale.log()
             // .domain([d3.max(chartData, function(d) { return d.total_games; }), 0])
@@ -33,6 +33,11 @@ y.domain(d3.extent(chartData, function(d) { return d.total_games;}));
                 .scale(y)
                 .orient("left");
 
+    var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+    // placing the y axis on the chart
     chart.append("g")
         .attr("transform", "translate(50, 0)")
         .attr("class", "axis")
@@ -46,9 +51,28 @@ y.domain(d3.extent(chartData, function(d) { return d.total_games;}));
         .style("text-anchor", "end")
         .text("Number of Openings");
 
+    // placing the x axis on the chart
+    var xAxisGroup = chart.append("g");
+
+    xAxisGroup.append("line")
+        .attr("x1", margin.left * (3/5))
+        .attr("y1", height - margin.bottom/2 - margin.top/2)
+        .attr("x2", width - margin.right)
+        .attr("y2", height - margin.bottom/2 - margin.top/2)
+        .style("stroke", "black");
+
+    xAxisGroup.append("text")
+        .attr("y", height - margin.bottom/2)
+        .attr("x", width - margin.right)
+        .classed("title", true)
+        .style("text-anchor", "end")
+        .text("Openings: Hover over bars to see opening name.");
+
     function messageForD(d, messageDiv) {
         messageDiv.select("#name .stuff").text(d.name);
         messageDiv.select("#numgames .stuff").text(d.total_games);
+        var link = "<a href=\"http://en.wikipedia.org/wiki/" + d.name.replace(/ /g, "_") + "\">on Wikipedia</a>";
+        messageDiv.select("#wikilink .stuff").html(link);
     }
 
     function clearMessageArea(messageDiv) {
@@ -82,6 +106,7 @@ y.domain(d3.extent(chartData, function(d) { return d.total_games;}));
             vyAxis = d3.svg.axis()
                     .scale(vy)
                     .orient("left");
+
         vy.domain(d3.extent(variantList, function(d) { return d.total_games; }));
 
         // update the scales to reflect current data
@@ -109,7 +134,7 @@ y.domain(d3.extent(chartData, function(d) { return d.total_games;}));
             .duration(1000)
                 .attr('y', function(d) { return height - margin.top - vsh(d.total_games); })
                 .attr('x', function(d, i) { return margin.left + i * interval; })
-                .attr('height', function(d) { return vsh(d.total_games)})
+                .attr('height', function(d) { return vsh(d.total_games); })
                 .attr('width', interval)
                 .transition()
                 .ease('linear')
@@ -123,7 +148,7 @@ y.domain(d3.extent(chartData, function(d) { return d.total_games;}));
             .on('mouseover.color', function(d) { d3.select(this).classed('orange', true); })
             .on('mouseout.color', function(d) { d3.select(this).classed('orange', false); })
             .on('mouseover.text', function(d) { messageForD(d, messageDiv); })
-            .on('mouseout.text', function(d) { clearMessageArea(messageDiv); })
+            // .on('mouseout.text', function(d) { clearMessageArea(messageDiv); })
             .on('click', null);
 
         selection
@@ -167,7 +192,7 @@ y.domain(d3.extent(chartData, function(d) { return d.total_games;}));
                 .attr('y', height - margin.top)
                 .attr('height', 0)
                 .attr('x', function(d, i) { return margin.left + x(i); })
-                .attr('width', width/chartData.length)
+                .attr('width', (width - margin.left - margin.right)/chartData.length)
                 .classed('green', true)                
                 .transition()
                     .ease('linear')
@@ -180,8 +205,8 @@ y.domain(d3.extent(chartData, function(d) { return d.total_games;}));
         selection
                 .on('click', focusOpening)
                 .on('click.hi', function() { selection.classed('invis', true); })
-                .on('mouseover.text', function(d) { messageForD(d, messageDiv); })
-                .on('mouseout.text', function(d) { clearMessageArea(messageDiv); })
+                .on('mouseover.text', function(d) { console.log(d); messageForD(d, messageDiv); })
+                // .on('mouseout.text', function(d) { clearMessageArea(messageDiv); })
                 .on('mouseover.color', function(d) { d3.select(this).classed('orange', true); })
                 .on('mouseout.color', function(d) { d3.select(this).classed('orange', false); });
         selection.exit()
