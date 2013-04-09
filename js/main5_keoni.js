@@ -1,7 +1,7 @@
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 450 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 300 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
 
 var x = d3.scale.log()
     .range([0, width]);
@@ -51,15 +51,15 @@ for(i in data){
 
 function lightup(d){
 	var box = document.getElementById("infobox");
-	box.innerHTML = d.name+"<br>"+"Win Percentage: "+d.win+"%"+"<br>"+"Lose Percentage: "+d.lose+
-		"%"+"<br>"+"Draw Percentage: "+d.draw+"%"+"<br>"+"Number of Games Used in: "+d.games;
+	box.innerHTML = d.name+"<br>"+"Win Percentage: "+d.win+"%"+"    "+"Lose Percentage: "+d.lose+
+		"%"+"    "+"Draw Percentage: "+d.draw+"%"+"<br>"+"Number of Games Used in: "+d.games;
 	console.log(d3.select(this).attr("name"));
 	d3.selectAll("[name="+d3.select(this).attr("name")+"]").classed('glow', true);
 }
 
 function lightout(d){
 	var box = document.getElementById("infobox");
-	box.innerHTML = "";
+	box.innerHTML = "Mouseover a point for information";
 	d3.selectAll("[name="+d3.select(this).attr("name")+"]").classed('glow', false);
 }
 
@@ -99,7 +99,7 @@ function drawPoint (data, svg, outcome) {
     .enter().append("circle")
       .attr("class", function(d) { return "dot";})
       .attr("name", function(d) { return d.name.replace(/ /g,"").replace("'","").replace(".","");})
-      .attr("r", 6)
+      .attr("r", 5)
       .attr("cx", function(d) { return x(d["games"]); })
       .attr("cy", function(d) { return y(d[outcome]); })
       .on("mouseover", lightup)

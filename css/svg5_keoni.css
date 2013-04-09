@@ -21,11 +21,40 @@
 	text-align: center;
 	line-height: 19px;
 	top:370px;
-	left:500px;
+	margin-left: auto;
+	margin-right: auto;
 	height: 100px;
-	width: 250px;
+	width: 500px;
 	border-style:solid;
 	border-color:#aaaaaa;
-	border-width:2px;
+	border-width:1px;
 	z-index:2;
 }
+
+/*code for later when we expand this into the final project
+#bar {
+	width: 700px;
+	height:70px;
+}
+
+#winbar {
+	width:30%;
+	background-color: #E0E0E0;
+}
+
+#drawbar {
+	width:40%;
+	background-color: #888888;
+}
+
+#losebar {
+	width:30%;
+	background-color: #333333;
+}
+
+.outcomebar {
+	height: inherit;
+	display: inline-block;
+	margin-left: -4px;
+}
+*/
