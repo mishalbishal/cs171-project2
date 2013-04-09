@@ -1,8 +1,8 @@
 .axis path,
 .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
 }
 
 .dot {
@@ -10,13 +10,20 @@
 	stroke: #444444;
 }
 
+.glow {
+	fill: #cc4044;
+	stroke: #884060;
+	stroke-width: 3px;
+}
+
 #infobox {
 	font-size: 12px;
 	text-align: center;
 	line-height: 19px;
 	top:370px;
-	height: 55px;
-	width: 200px;
+	left:500px;
+	height: 100px;
+	width: 250px;
 	border-style:solid;
 	border-color:#aaaaaa;
 	border-width:2px;

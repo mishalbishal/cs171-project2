@@ -1,6 +1,6 @@
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 760 - margin.left - margin.right,
+    width = 450 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var x = d3.scale.log()
@@ -19,9 +19,26 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
-var svg = d3.select("#vis2").append("svg")
+var vis2 = d3.select("#vis2container")
+
+var svg = vis2.append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .classed("span4", true)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+var svg2 = vis2.append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .classed("span4", true)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+var svg3 = vis2.append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .classed("span4", true)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
@@ -29,31 +46,31 @@ var datalist= [];
 
 for(i in data){
 	datalist.push({"name":i, "win":data[i]["win_percent"], "lose":data[i]["lose_percent"],
-	"win":data[i]["draw_percent"], "games":data[i]["total_games"]})
+	"draw":data[i]["draw_percent"], "games":data[i]["total_games"]})
 };
 
 function lightup(d){
 	var box = document.getElementById("infobox");
-	box.innerHTML = d.name+"<br>"+"Win Percentage: "+d.win+"%"+"<br>"+"Number of Games Used in: "+d.games;
-	d3.select(this).style("stroke", "ffbb99");
-	d3.select(this).style("fill", "#b0deb0");
+	box.innerHTML = d.name+"<br>"+"Win Percentage: "+d.win+"%"+"<br>"+"Lose Percentage: "+d.lose+
+		"%"+"<br>"+"Draw Percentage: "+d.draw+"%"+"<br>"+"Number of Games Used in: "+d.games;
+	console.log(d3.select(this).attr("name"));
+	d3.selectAll("[name="+d3.select(this).attr("name")+"]").classed('glow', true);
 }
 
 function lightout(d){
 	var box = document.getElementById("infobox");
 	box.innerHTML = "";
-	d3.select(this).style("stroke", "44444");
-	d3.select(this).style("fill", "#a0bb28");
+	d3.selectAll("[name="+d3.select(this).attr("name")+"]").classed('glow', false);
 }
 
-function drawPoint (data) {
+function drawPoint (data, svg, outcome) {
   data.forEach(function(d) {
-    d["win"] = +d["win"];
+    d[outcome] = +d[outcome];
     d["games"] = +d["games"];
   });
 
   x.domain(d3.extent(data, function(d) { return d["games"]; })).nice();
-  y.domain(d3.extent(data, function(d) { return d["win"]; })).nice();
+  y.domain(d3.extent(data, function(d) { return d[outcome]; })).nice();
 
   svg.append("g")
       .attr("class", "x axis")
@@ -75,36 +92,22 @@ function drawPoint (data) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Win Percentage")
+      .text(outcome.charAt(0).toUpperCase()+outcome.slice(1)+" Percentage")
 
   svg.selectAll(".dot")
       .data(data)
     .enter().append("circle")
-      .attr("class", "dot")
-      .attr("r", 5.5)
+      .attr("class", function(d) { return "dot";})
+      .attr("name", function(d) { return d.name.replace(/ /g,"").replace("'","").replace(".","");})
+      .attr("r", 6)
       .attr("cx", function(d) { return x(d["games"]); })
-      .attr("cy", function(d) { return y(d["win"]); })
+      .attr("cy", function(d) { return y(d[outcome]); })
       .on("mouseover", lightup)
       .on("mouseout", lightout);
 
-  /*var legend = svg.selectAll(".legend")
-      .data(color.domain())
-    .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-  legend.append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
-
-  legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });*/
 };
 
-drawPoint(datalist);
+drawPoint(datalist, svg2, "win");
+drawPoint(datalist, svg, "lose");
+drawPoint(datalist, svg3, "draw");
+

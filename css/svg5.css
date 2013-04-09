@@ -2,6 +2,10 @@ h1, p {
 	margin: 0;
 }
 
+.container {
+	margin-left: 135px;
+}
+
 .invis {
 	display: none;
 }
@@ -21,21 +25,21 @@ h1, p {
 
 svg {
 	border-style: solid;
-	border-width: 1px;
+	border-width: 0px;
 	left: 0;
 	right: 0;
 }
 
 .green {
-	fill: #7FC97F;
+	fill: #309b68;
 }
 
 .blue {
-	fill: #BEAED4;
+	fill: #7EAEc4;
 }
 
 .orange {
-	fill: #FDC086;
+	fill: #FDC096;
 }
 
 
